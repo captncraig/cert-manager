@@ -3,7 +3,6 @@ package selfsigned
 import (
 	"context"
 	"crypto"
-	"time"
 
 	k8sErrors "k8s.io/apimachinery/pkg/api/errors"
 
@@ -29,7 +28,7 @@ const (
 
 const (
 	// certificateDuration of 1 year
-	certificateDuration = time.Hour * 24 * 365
+	certificateDuration = 365
 	defaultOrganization = "cert-manager"
 )
 
@@ -72,7 +71,7 @@ func (c *SelfSigned) obtainCertificate(crt *v1alpha1.Certificate, privateKey cry
 		return nil, err
 	}
 
-	template, err := pki.GenerateTemplate(c.issuer, crt, nil)
+	template, err := pki.GenerateTemplate(c.issuer, crt, nil, certificateDuration)
 	if err != nil {
 		return nil, err
 	}

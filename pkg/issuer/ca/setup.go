@@ -56,5 +56,12 @@ func (c *CA) Setup(ctx context.Context) error {
 	c.recorder.Event(c.issuer, v1.EventTypeNormal, successKeyPairVerified, messageKeyPairVerified)
 	c.issuer.UpdateStatusCondition(v1alpha1.IssuerConditionReady, v1alpha1.ConditionTrue, successKeyPairVerified, messageKeyPairVerified)
 
+	if lifetime := c.issuer.GetSpec().CA.CertificateLifetime; lifetime != 0 {
+		c.certLifetime = lifetime
+	}
+	if renew := c.issuer.GetSpec().CA.RenewWithin; renew != 0 {
+		c.renewWithin = renew
+	}
+
 	return nil
 }

@@ -123,6 +123,11 @@ type CAIssuer struct {
 	// SecretName is the name of the secret used to sign Certificates issued
 	// by this Issuer.
 	SecretName string `json:"secretName"`
+	// CertificateLifetime is the number of days before a cert expires. Defaults to 365.
+	CertificateLifetime int `json:"certificateLifetime"`
+	// RenewWithin is the number of days before expiration that cert-manager will attempt to renew.
+	// Defaults to 30.
+	RenewWithin int `json:"renewWithin"`
 }
 
 // ACMEIssuer contains the specification for an ACME issuer

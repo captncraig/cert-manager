@@ -20,6 +20,8 @@ type CA struct {
 	recorder                 record.EventRecorder
 	issuerResourcesNamespace string
 	secretsLister            corelisters.SecretLister
+	certLifetime             int
+	renewWithin              int
 }
 
 func NewCA(issuer v1alpha1.GenericIssuer,
@@ -35,6 +37,8 @@ func NewCA(issuer v1alpha1.GenericIssuer,
 		recorder:                 recorder,
 		issuerResourcesNamespace: issuerResourcesNamespace,
 		secretsLister:            secretsLister,
+		certLifetime:             365,
+		renewWithin:              30,
 	}, nil
 }
 
